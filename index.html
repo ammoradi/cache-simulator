@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Title -->
+    <title>Iust Cache Simulator</title>
+
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+
+    <!-- Icon -->
+    <link rel="shortcut icon" href="components/src/images/favicon.ico"/>
+
+    <!-- CSS -->
+    <link href="components/libs/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="components/libs/bootstrap/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+    <link href="components/libs/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="components/libs/animate%20css/animation.css" type="text/css" rel="stylesheet">
+    <link href="components/src/css/style.css" type="text/css" rel="stylesheet"/>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <!-- JavaScript -->
+    <script src="components/libs/jquery/jquery-2.1.1.js"></script>
+    <script src="components/libs/chartjs/Chart.min.js"></script>
+    <script src="components/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="app/js/modules/DmModule.js"></script>
+    <script src="app/js/modules/SaModule.js"></script>
+    <script src="app/js/modules/FaModule.js"></script>
+    <script src="app/js/services/arrayService.js"></script>
+    <script src="app/js/services/frameService.js"></script>
+    <script src="app/js/services/cacheService.js"></script>
+    <script src="app/js/resources/realAddresses.js"></script>
+    <script src="app/app.js"></script>
+
+</head>
+<body>
+<div id="container" class="container">
+    <div id="title" class="row">
+        <img src="components/src/images/iust.png" class="logo animated fadeInDown">
+        <h2 class="centeredTxt animated slideInRight">Online Cache Simulator by Amirmohammad Moradi<img
+                src="components/src/images/programmerEmail.png"></h2>
+        <h2 class="centeredTxt animated slideInLeft">Supervisor : Dr. Ahmad Patooghy<img
+                src="components/src/images/superVisorEmail.png"></h2>
+    </div>
+    <div class="row groupBtn">
+        <button href="#" type="button" id="helpBtn" class="button setButton animated flipInY"
+                onclick="openLink('http://docdro.id/6Ljrkqs')">
+            Help
+            <i class="fa fa-question"></i>
+        </button>
+        <button href="#" type="button" id="analysisBtn" class="button setButton animated flipInY"
+                onclick="openLink('http://docdro.id/ng146ZN')">
+            Analysis
+            <i class="fa fa-bar-chart"></i>
+        </button>
+    </div>
+    <div class="row groupBtn noFirst">
+        <button type="button" id="newButton" class="button setButton animated flipInY" data-toggle="modal"
+                data-target="#newCacheModal">
+            New
+            <i class="fa fa-plus"></i>
+        </button>
+        <button type="button" class="button setButton  animated flipInY" onClick="history.go(0)">
+            Reset
+            <i class="fa fa-recycle"></i>
+        </button>
+    </div>
+    <div id="createCacheBox">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="closeCacheBox" type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">New Simulation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>
+                            1) Configuration Selection
+                            <i class="fa fa-cog"></i>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inputBox">
+                                    <h4><b>RAM SIZE:</b></h4>
+                                    <div class="col-md-4">
+                                        <select id="ramSizeSelect" class="form-control">
+                                            <option value="24">16 MB</option>
+                                            <option value="23">8 MB</option>
+                                            <option value="22">4 MB</option>
+                                            <option value="21">2 MB</option>
+                                            <option value="20">1 MB</option>
+                                            <option value="19">512 KB</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span>OR</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="ramSizeInput" class="form-control" placeholder="enter ram size">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" id="ramSizeUnit">
+                                            <option value="20">MB</option>
+                                            <option value="10">KB</option>
+                                            <option value="0">B</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="inputBox">
+                                    <h4><b>CACHE SIZE:</b></h4>
+                                    <div class="col-md-4">
+                                        <select id="cacheSizeSelect" class="form-control">
+                                            <option value="13">8 KB</option>
+                                            <option value="12">4 KB</option>
+                                            <option value="11">2 KB</option>
+                                            <option value="10">1 KB</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span>OR</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="cacheSizeInput" class="form-control" placeholder="enter cache size">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="cacheSizeUnit" class="form-control">
+                                            <option value="20">MB</option>
+                                            <option value="10">KB</option>
+                                            <option value="0">B</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="inputBox">
+                                    <h4><b>BLOCK SIZE:</b></h4>
+                                    <div class="col-md-4">
+                                        <select id="blockSizeSelect" class="form-control">
+                                            <option value="9">512 B</option>
+                                            <option value="11">2 KB</option>
+                                            <option value="10">1 KB</option>
+                                            <option value="8">256 B</option>
+                                            <option value="7">128 B</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span>OR</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="blockSizeInput" class="form-control" placeholder="enter block size">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="blockSizeUnit" class="form-control">
+                                            <option value="20">MB</option>
+                                            <option value="10">KB</option>
+                                            <option value="0">B</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                <div class="inputBox">
+                                    <div class="col-md-4">
+                                        <h4><b>METHOD:</b></h4>
+                                        <select id="method" class="form-control">
+                                            <option value="Direct">Direct mapped</option>
+                                            <option value="Fully">Fully Associative</option>
+                                            <option value="Set">Set Associative</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4><b>Set ?-WAY:</b></h4>
+                                        <select id="setsize" class="form-control">
+                                            <option value="3">8 way</option>
+                                            <option value="2">4 way</option>
+                                            <option value="1">2 way</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4><b>Algorithm:</b></h4>
+                                        <select id="algorithm" class="form-control">
+                                            <option value="LRU">LRU</option>
+                                            <option value="FIFO">FIFO</option>
+                                            <option value="Random">Random</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>
+                            2) Address Trace Selection
+                            <i class="fa fa-database"></i>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="addressBox">
+                                    <h4><b>MEMORY ADDRESSES</b></h4>
+                                    <div class="gpBtn2">
+                                        <button type="button" id="randomInputButton" class="button">Generate Random</button>
+                                        <span>or</span>
+                                        <button type="button" class="button fileInputBtn">
+                                            <span>Choose File</span>
+                                            <div class="form-group" id="fileInput">
+                                                <input type="file" id="importFromFileButton">
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <p>You Can Type Your Address into the Input</p>
+                                    <textarea id="textarea1" class="form-control" rows="15"></textarea>
+                                    <h4>
+                                        <span>or use </span><span>Real Memory Addresses</span><span> from</span>
+                                        <span><a
+                                                href="https://cs.oberlin.edu">Oberlin College Computer Science</a></span>
+                                    </h4>
+                                    <div class="gpBtn1">
+                                        <button type="button" class="button trace" id="artTrace">art.trace</button>
+                                        <button type="button" class="button trace" id="mcfTrace">mcf.trace</button>
+                                        <button type="button" class="button trace" id="swimTrace">swim.trace</button>
+                                    </div>
+                                    <p>
+                                        These traces were generated by a simulator of a RISC processor running three programs, art, mcf, and swim from the SPEC benchmarks
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>
+                            3) Simulation
+                            <i class="fa fa-send"></i>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="submitBox">
+                            <div class="groupBtn">
+                                <button id="closeCacheBox2" type="button" class="button closer" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button id="submitButton" type="button" class="button submit" data-dismiss="modal">
+                                    Submit
+                                </button>
+                            </div>
+                            <h5>after submission you can run simulation by right-side buttons will be appeared</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="runBox" class="sideButton">
+        <button type="button" id="nextStepButton" class="button setButton">
+            Step
+            <i class="fa fa-step-forward"></i>
+        </button>
+        <button type="button" id="runButton" class="button setButton">
+            Run
+            <i class="fa fa-play"></i>
+        </button>
+    </div>
+    <div class="row infoBox animated slideInUp">
+        <div id="addressaccess" class="col-md-4">
+            <h3>Memory Access</h3>
+            <div id="tabellaPlace">
+
+            </div>
+        </div>
+        <div id="cache" class="col-md-4">
+            <h3>Cache</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr id="addHeadTable">
+
+                </tr>
+                </thead>
+                <tbody id="tdirect">
+
+                </tbody>
+            </table>
+        </div>
+        <div id="byte_address" class="col-md-4">
+            <h3>Address</h3>
+            <div id="ByteAddress">
+
+            </div>
+        </div>
+
+    </div>
+    <div id="statistics" class="row animated slideInUp">
+        <!-- chart -->
+        <canvas id="myChart" class="lineChart"></canvas>
+    </div>
+</div>
+</body>
+</html>
