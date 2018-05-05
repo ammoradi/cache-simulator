@@ -1,3 +1,3 @@
-# IUST Online Cache Simulator
+# Javascript Online Cache Simulator
 
 
